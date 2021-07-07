@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Auth;
 class CompanyController extends Controller
 {
 
+    public $validationChecks = [
+            'name' => 'required|unique:companies,name|max:255|min:3',
+            'email' => 'email|nullable',
+            'website' => 'max:255|url|nullable'
+    ];
+
     public function __construct()
     {
         $this->middleware('auth')->except(['index','show']);
@@ -41,11 +47,7 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|unique:companies,name|max:255|min:3',
-            'email' => 'email',
-            'website' => 'max:255'
-        ]);
+        $validated = $request->validate($this->validationChecks);
         $newCompany = Company::create($validated);
         return redirect("/companies/$newCompany->id");
     }
@@ -81,7 +83,9 @@ class CompanyController extends Controller
      */
     public function update(Request $request, Company $company)
     {
-        //
+        $validated = $request->validate($this->validationChecks);
+        $company->update($validated);
+        return redirect("/companies/$newCompany->id");
     }
 
     /**

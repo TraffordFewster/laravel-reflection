@@ -3,15 +3,13 @@
 namespace Tests\Feature\CompanyTests;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 
 class CompanyCreationTests extends TestCase
 {
-    //use refreshDatabase;
-    use DatabaseMigrations;
+    use refreshDatabase;
 
     public function setUp() :void
     {
@@ -37,11 +35,11 @@ class CompanyCreationTests extends TestCase
 
     public function test_create_justname_company()
     {
-        $user = User::all()->first(); //get admin user
+        $user = User::first(); //get admin user
 
         //send post as admin user to create a company
         $response = $this->actingAs($user)
-                    ->post('/company',['name' => 'exampleCompany']);
+                    ->post('/company',['name' => 'exampleCompany', 'email' => '', 'website' => '']);
 
         // check company in database
         $this->assertDatabaseHas('companies', [
@@ -53,7 +51,7 @@ class CompanyCreationTests extends TestCase
 
     public function test_create_tooshort_company()
     {
-        $user = User::all()->first(); //get admin user
+        $user = User::first(); //get admin user
 
         $response = $this->actingAs($user) // send as admin
                     ->from('/company/create') // send from create page
@@ -64,7 +62,7 @@ class CompanyCreationTests extends TestCase
 
     public function test_create_noname_company()
     {
-        $user = User::all()->first(); //get admin user
+        $user = User::first(); //get admin user
 
         $response = $this->actingAs($user) // send as admin
                     ->from('/company/create') // send from create page
@@ -75,7 +73,7 @@ class CompanyCreationTests extends TestCase
 
     public function test_create_invalid_email_company()
     {
-        $user = User::all()->first(); //get admin user
+        $user = User::first(); //get admin user
 
         $response = $this->actingAs($user) // send as admin
                     ->from('/company/create') // send from create page
@@ -86,7 +84,7 @@ class CompanyCreationTests extends TestCase
 
     public function test_create_duplicate_company()
     {
-        $user = User::all()->first(); //get admin user
+        $user = User::first(); //get admin user
 
         $response = $this->actingAs($user) // send as admin
                     ->from('/company/create') // send from create page
@@ -101,13 +99,13 @@ class CompanyCreationTests extends TestCase
 
     public function test_create_full_company()
     {
-        $user = User::all()->first(); //get admin user
+        $user = User::first(); //get admin user
 
         // setup company data
         $companyData = [
                         'name' => 'exampleCompany',
                         'email' => 'email@example.com',
-                        'website' => 'testmcteston.com',
+                        'website' => 'https://testmcteston.com',
         ];
 
         $response = $this->actingAs($user) // send as admin
