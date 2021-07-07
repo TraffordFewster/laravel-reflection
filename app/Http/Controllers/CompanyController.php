@@ -30,9 +30,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        // if (Auth::guest()) {
-        //     abort(403);
-        // }
+        //
     }
 
     /**
@@ -43,7 +41,13 @@ class CompanyController extends Controller
      */
     public function store(Request $request)
     {
-
+        $validated = $request->validate([
+            'name' => 'required|unique:companies,name|max:255|min:3',
+            'email' => 'email',
+            'website' => 'max:255'
+        ]);
+        $newCompany = Company::create($validated);
+        return redirect("/companies/$newCompany->id");
     }
 
     /**
