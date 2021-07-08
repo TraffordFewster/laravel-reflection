@@ -22,9 +22,9 @@ class CompanyFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->name(),
+            'name' => $this->faker->company(),
             'email' => $this->faker->unique()->safeEmail(),
-            'website' => $this->faker->word(),
+            'website' => $this->faker->url(),
         ];
     }
 }
