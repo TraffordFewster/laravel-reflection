@@ -11,7 +11,7 @@ class CompanyController extends Controller
 {
 
     public $validationChecks = [
-        'name' => 'required|unique:companies,name|max:255|min:3',
+        'name' => 'required|max:255|min:3',
         'email' => 'email|nullable',
         'website' => 'max:255|url|nullable'
     ];
@@ -75,7 +75,7 @@ class CompanyController extends Controller
      */
     public function edit(Company $company)
     {
-        //
+        return view('companies.edit',compact('company'));
     }
 
     /**
@@ -89,7 +89,8 @@ class CompanyController extends Controller
     {
         $validated = $request->validate($this->validationChecks);
         $company->update($validated);
-        return redirect("/companies/$newCompany->id");
+        session()->flash('success', 'Changes saved!');
+        return redirect("/companies/$company->id");
     }
 
     /**

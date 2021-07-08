@@ -82,20 +82,6 @@ class CompanyCreationTests extends TestCase
         $response->assertRedirect('/companies/create');
     }
 
-    public function test_create_duplicate_company()
-    {
-        $user = User::first(); //get admin user
-
-        $response = $this->actingAs($user) // send as admin
-                    ->from('/companies/create') // send from create page
-                    ->post('/companies',['name' => 'exampleCompany']); // send with a name
-        $responsetwo = $this->actingAs($user) // send as admin
-                    ->from('/companies/create') // send from create page
-                    ->post('/companies',['name' => 'exampleCompany']); // send with a duplicate name
-        
-        $response->assertRedirect('/companies/1'); // check first company was created
-        $responsetwo->assertRedirect('/companies/create'); // check it redirected due to error
-    }
 
     public function test_create_full_company()
     {

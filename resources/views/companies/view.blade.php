@@ -10,7 +10,7 @@
                     <a href="mailto:{{$company->email}}">{{$company->email}}</a><br>
                 @endif
                 @if ($company->website)
-                    <a href="mailto:{{$company->website}}">Website</a>
+                    <a href="{{$company->website}}">Website</a>
                 @endif
             </div>
         </div>
@@ -23,7 +23,7 @@
                     </div>
                 @endforeach
                 <div class="container">
-                    <div class='col-12 p-0 mt-4'>
+                    <div class='col-12 p-0 mt-4 mx-auto d-block'>
                         {{ $employees->links('vendor.pagination.bootstrap-4') }}
                     </div>
                 </div>
@@ -31,9 +31,11 @@
         @endif
         @if (Auth::check())
             <div class='row'>
-                <div class='col-12'>
+                <div class='col-8'>
                     <a class="mr-auto btn btn-primary btn-block" href="{{$company->id}}/edit" role="button">Edit</a>
-                    <form class='mt-1' action="/companies/{{$company->id}}" method="POST">
+                </div>
+                <div class='col-4'>
+                    <form class='' action="/companies/{{$company->id}}" method="POST">
                         @method('DELETE')
                         @csrf
                         <input class="btn btn-danger btn-block" type="submit" value="Delete">
