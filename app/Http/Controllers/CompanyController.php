@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -61,7 +62,9 @@ class CompanyController extends Controller
      */
     public function show(Company $company)
     {
-        //
+        // $employees = $company->employees->paginate(10);
+        $employees = Employee::where('company_id',$company->id)->paginate(10);
+        return view('companies.view', compact('company','employees'));
     }
 
     /**
