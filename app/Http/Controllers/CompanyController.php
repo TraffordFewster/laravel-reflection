@@ -38,7 +38,7 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        //
+        return view('companies.create');
     }
 
     /**
@@ -51,6 +51,7 @@ class CompanyController extends Controller
     {
         $validated = $request->validate($this->validationChecks);
         $newCompany = Company::create($validated);
+        session()->flash('success', 'Company Created!');
         return redirect("/companies/$newCompany->id");
     }
 

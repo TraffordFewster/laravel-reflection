@@ -15,5 +15,13 @@
             {{ $companies->links('vendor.pagination.bootstrap-4') }}
         </div>
     </div>
+    @if (Auth::check())
+        <div class='container'>
+            <div class='col-12 p-0 mt-4'>
+                <a class='btn btn-primary btn-block' href="/companies/create">Create</a>
+            </div>
+        </div>
+    @endif
+
 
 @endsection
