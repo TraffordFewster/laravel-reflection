@@ -101,6 +101,7 @@ class CompanyController extends Controller
     public function destroy(Company $company)
     {
         $company->delete();
+        session()->flash('success', 'Company was deleted!');
         return redirect("/companies");
     }
 }

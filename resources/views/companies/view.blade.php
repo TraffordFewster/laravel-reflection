@@ -29,5 +29,17 @@
                 </div>
             </div>
         @endif
+        @if (Auth::check())
+            <div class='row'>
+                <div class='col-12'>
+                    <a class="mr-auto btn btn-primary btn-block" href="{{$company->id}}/edit" role="button">Edit</a>
+                    <form class='mt-1' action="/companies/{{$company->id}}" method="POST">
+                        @method('DELETE')
+                        @csrf
+                        <input class="btn btn-danger btn-block" type="submit" value="Delete">
+                    </form>
+                </div>
+            </div>
+        @endif
     </div>
 @endsection

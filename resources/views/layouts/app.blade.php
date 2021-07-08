@@ -68,8 +68,10 @@
                 </div>
             </div>
         </nav>
-        @include('popups.success_flash')
-        @include('popups.errors')
+        <div class='container'>
+            @include('popups.success_flash')
+            @include('popups.errors')
+        </div>
 
         <main class="py-4">
             @yield('content')
