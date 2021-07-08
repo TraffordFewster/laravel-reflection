@@ -31,7 +31,7 @@ class CompanyEditTests extends TestCase
         // Create a company and assign it to the $company var
         $company = $this->qComp();
         // Send a get request to the page where you would edit it
-        $response = $this->get("/company/$company->id/edit");
+        $response = $this->get("/companies/$company->id/edit");
         // Expect it to redirect to the login page as your not logged in
         $response->assertRedirect('/login');
     }
@@ -41,7 +41,7 @@ class CompanyEditTests extends TestCase
         // Create a company and assign it to the $company var.
         $company = $this->qComp();
         // Send a patch that would edit the post.
-        $response = $this->patch("/company/$company->id/");
+        $response = $this->patch("/companies/$company->id/");
         // Expect a redirect as your not allowed without being logged in.
         $response->assertRedirect('/login');
     }
@@ -56,8 +56,8 @@ class CompanyEditTests extends TestCase
         $companyData = ['name' => 'editTitle', 'email' => 'email@email.com', 'website'=>'http://website.com'];
 
         $response = $this->actingAs($user) // send as admin
-            ->from("/company/$company->id/edit") // send from edit page
-            ->patch("/company/$company->id/",$companyData); // send patch request with data defined above
+            ->from("/companies/$company->id/edit") // send from edit page
+            ->patch("/companies/$company->id/",$companyData); // send patch request with data defined above
         
         $this->assertDatabaseHas('companies', $companyData); // check data was changed in database
     }
@@ -72,8 +72,8 @@ class CompanyEditTests extends TestCase
         $companyData = ['name' => 'editTitle', 'email' => null, 'website'=>null];
 
         $response = $this->actingAs($user) // send as admin
-            ->from("/company/$company->id/edit") // send from edit page
-            ->patch("/company/$company->id/",$companyData); // send patch request with data defined above
+            ->from("/companies/$company->id/edit") // send from edit page
+            ->patch("/companies/$company->id/",$companyData); // send patch request with data defined above
         
         $this->assertDatabaseHas('companies', $companyData); // check data was changed in database
     }
@@ -88,10 +88,10 @@ class CompanyEditTests extends TestCase
         $companyData = ['name' => 'ed', 'email' => 'email@email.com', 'website'=>'http://website.com'];
 
         $response = $this->actingAs($user) // send as admin
-            ->from("/company/$company->id/edit") // send from edit page
-            ->patch("/company/$company->id/",$companyData); // send patch request with data defined above
+            ->from("/companies/$company->id/edit") // send from edit page
+            ->patch("/companies/$company->id/",$companyData); // send patch request with data defined above
         
-        $response->assertRedirect("/company/$company->id/edit"); // check its redirecting back on invalid data
+        $response->assertRedirect("/companies/$company->id/edit"); // check its redirecting back on invalid data
     }
 
     public function test_edit_invalid_email()
@@ -104,10 +104,10 @@ class CompanyEditTests extends TestCase
         $companyData = ['name' => 'editTitle', 'email' => 'emailemail.com', 'website'=>'http://website.com'];
 
         $response = $this->actingAs($user) // send as admin
-            ->from("/company/$company->id/edit") // send from edit page
-            ->patch("/company/$company->id/",$companyData); // send patch request with data defined above
+            ->from("/companies/$company->id/edit") // send from edit page
+            ->patch("/companies/$company->id/",$companyData); // send patch request with data defined above
         
-        $response->assertRedirect("/company/$company->id/edit"); // check its redirecting back on invalid data
+        $response->assertRedirect("/companies/$company->id/edit"); // check its redirecting back on invalid data
     }
 
     public function test_edit_invalid_website()
@@ -120,10 +120,10 @@ class CompanyEditTests extends TestCase
         $companyData = ['name' => 'editTitle', 'email' => 'email@email.com', 'website'=>'websitecom'];
 
         $response = $this->actingAs($user) // send as admin
-            ->from("/company/$company->id/edit") // send from edit page
-            ->patch("/company/$company->id/",$companyData); // send patch request with data defined above
+            ->from("/companies/$company->id/edit") // send from edit page
+            ->patch("/companies/$company->id/",$companyData); // send patch request with data defined above
         
-        $response->assertRedirect("/company/$company->id/edit"); // check its redirecting back on invalid data
+        $response->assertRedirect("/companies/$company->id/edit"); // check its redirecting back on invalid data
     }
 
     public function test_edit_nonexistent()
@@ -134,8 +134,8 @@ class CompanyEditTests extends TestCase
         $companyData = ['name' => 'editTitle', 'email' => 'email@email.com', 'website'=>'websitecom'];
 
         $response = $this->actingAs($user) // send as admin
-            ->from("/company/1/edit") // send from edit page
-            ->patch("/company/1/",$companyData); // send patch request with data defined above
+            ->from("/companies/1/edit") // send from edit page
+            ->patch("/companies/1/",$companyData); // send patch request with data defined above
         
         $response->assertStatus(404); // check it doesn't exist
     }
@@ -146,7 +146,7 @@ class CompanyEditTests extends TestCase
         $user = User::first(); // Get admin user to use in request
 
         $response = $this->actingAs($user) // send as admin
-            ->get("/company/1/edit"); // send patch request with data defined above
+            ->get("/companies/1/edit"); // send patch request with data defined above
         
         $response->assertStatus(404); // check it doesn't exist
     }

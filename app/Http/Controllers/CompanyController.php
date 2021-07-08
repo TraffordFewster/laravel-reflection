@@ -10,9 +10,9 @@ class CompanyController extends Controller
 {
 
     public $validationChecks = [
-            'name' => 'required|unique:companies,name|max:255|min:3',
-            'email' => 'email|nullable',
-            'website' => 'max:255|url|nullable'
+        'name' => 'required|unique:companies,name|max:255|min:3',
+        'email' => 'email|nullable',
+        'website' => 'max:255|url|nullable'
     ];
 
     public function __construct()
@@ -96,6 +96,7 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company)
     {
-        //
+        $company->delete();
+        return redirect("/companies");
     }
 }

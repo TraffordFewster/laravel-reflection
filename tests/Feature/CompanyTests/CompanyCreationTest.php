@@ -20,7 +20,7 @@ class CompanyCreationTests extends TestCase
     public function test_create_company_page_nologin()
     {
         //send get to create page
-        $response = $this->get('/company/create');
+        $response = $this->get('/companies/create');
         //check it redirects to login
         $response->assertRedirect('/login');
     }
@@ -28,7 +28,7 @@ class CompanyCreationTests extends TestCase
     public function test_create_company_nologin()
     {
         //send post to company page
-        $response = $this->post('/company');
+        $response = $this->post('/companies');
         //check it redirects to login
         $response->assertRedirect('/login');
     }
@@ -39,7 +39,7 @@ class CompanyCreationTests extends TestCase
 
         //send post as admin user to create a company
         $response = $this->actingAs($user)
-                    ->post('/company',['name' => 'exampleCompany', 'email' => '', 'website' => '']);
+                    ->post('/companies',['name' => 'exampleCompany', 'email' => '', 'website' => '']);
 
         // check company in database
         $this->assertDatabaseHas('companies', [
@@ -54,10 +54,10 @@ class CompanyCreationTests extends TestCase
         $user = User::first(); //get admin user
 
         $response = $this->actingAs($user) // send as admin
-                    ->from('/company/create') // send from create page
-                    ->post('/company',['name' => 'ex']); // send too short of a name
+                    ->from('/companies/create') // send from create page
+                    ->post('/companies',['name' => 'ex']); // send too short of a name
         // check redirectes back to the creation page
-        $response->assertRedirect('/company/create');
+        $response->assertRedirect('/companies/create');
     }
 
     public function test_create_noname_company()
@@ -65,10 +65,10 @@ class CompanyCreationTests extends TestCase
         $user = User::first(); //get admin user
 
         $response = $this->actingAs($user) // send as admin
-                    ->from('/company/create') // send from create page
-                    ->post('/company',['email' => 'admin@admin.com']); // send with no name
+                    ->from('/companies/create') // send from create page
+                    ->post('/companies',['email' => 'admin@admin.com']); // send with no name
         // check redirectes back to the creation page
-        $response->assertRedirect('/company/create');
+        $response->assertRedirect('/companies/create');
     }
 
     public function test_create_invalid_email_company()
@@ -76,10 +76,10 @@ class CompanyCreationTests extends TestCase
         $user = User::first(); //get admin user
 
         $response = $this->actingAs($user) // send as admin
-                    ->from('/company/create') // send from create page
-                    ->post('/company',['name' => 'exampleTwo', 'email' => 'adminadmin.com']); // send with an invalid email
+                    ->from('/companies/create') // send from create page
+                    ->post('/companies',['name' => 'exampleTwo', 'email' => 'adminadmin.com']); // send with an invalid email
         // check redirectes back to the creation page
-        $response->assertRedirect('/company/create');
+        $response->assertRedirect('/companies/create');
     }
 
     public function test_create_duplicate_company()
@@ -87,14 +87,14 @@ class CompanyCreationTests extends TestCase
         $user = User::first(); //get admin user
 
         $response = $this->actingAs($user) // send as admin
-                    ->from('/company/create') // send from create page
-                    ->post('/company',['name' => 'exampleCompany']); // send with a name
+                    ->from('/companies/create') // send from create page
+                    ->post('/companies',['name' => 'exampleCompany']); // send with a name
         $responsetwo = $this->actingAs($user) // send as admin
-                    ->from('/company/create') // send from create page
-                    ->post('/company',['name' => 'exampleCompany']); // send with a duplicate name
+                    ->from('/companies/create') // send from create page
+                    ->post('/companies',['name' => 'exampleCompany']); // send with a duplicate name
         
         $response->assertRedirect('/companies/1'); // check first company was created
-        $responsetwo->assertRedirect('/company/create'); // check it redirected due to error
+        $responsetwo->assertRedirect('/companies/create'); // check it redirected due to error
     }
 
     public function test_create_full_company()
@@ -109,7 +109,7 @@ class CompanyCreationTests extends TestCase
         ];
 
         $response = $this->actingAs($user) // send as admin
-                    ->post('/company',$companyData); // send post to create with the company data
+                    ->post('/companies',$companyData); // send post to create with the company data
 
         // check company in database
         $this->assertDatabaseHas('companies', $companyData);
