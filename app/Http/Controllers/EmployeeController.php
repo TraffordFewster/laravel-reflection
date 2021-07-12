@@ -7,6 +7,19 @@ use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
+
+    public $validationChecks = [
+        'first_name' => 'required|max:255|min:3',
+        'last_name' => 'required|max:255|min:3',
+        'email' => 'email|nullable',
+        'phone' => 'nullable|min:10',
+        'company_id' => 'nullable|exists:companies,id'
+    ];
+
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index','show']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +48,10 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate($this->validationChecks);
+        $newEmployee = Employee::create($validated);
+        session()->flash('success', 'Company Created!');
+        return redirect("/employees/$newEmployee->id");
     }
 
     /**
@@ -69,7 +85,10 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        //
+        $validated = $request->validate($this->validationChecks);
+        $employee->update($validated);
+        session()->flash('success', 'Edit successful!');
+        return redirect("/employees/$employee->id");
     }
 
     /**
@@ -80,6 +99,8 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        //
+        $employee->delete();
+        session()->flash('success', 'Employee Deleted!');
+        return redirect("/employees");
     }
 }
