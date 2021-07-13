@@ -21,7 +21,27 @@
             
             <input class="btn btn-primary btn-block" type="submit" value="Submit">
         </div>
+    </form>
+    <form method="POST" action="/companies/{{$company->id}}/image" enctype="multipart/form-data">
+        @csrf
+        <div class='container'>
+            <div class="row">
 
+                <div class="col-12 mt-4">
+                    <h4 class='text-center'>Upload Logo</h4>
+                </div>
+    
+                <div class="col-md-10 mt-4">
+                    <input type="file" name="image" id="image" class="">
+                </div>
+     
+                <div class="col-md-2 mt-4 w-100">
+                    <button type="submit" class="btn btn-success btn-block">Upload</button>
+                </div>
+     
+            </div>
+        </div>
+        
     </form>
 
 @endsection

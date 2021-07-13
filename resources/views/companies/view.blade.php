@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class='row'>
-            <div class='col-2'><img class='w-100' src="{{$company->picture ? $company->picture->link : 'https://cdn.tmonkeyt.dev/i/8m6ne.png' }}" alt="company logo"></div>
+            <div class='col-2'><img class='w-100' src="{{$company->picture ? $company->picture->link() : 'https://cdn.tmonkeyt.dev/i/8m6ne.png' }}" alt="company logo"></div>
             <div class="col-10 text-center mt-auto mb-auto">
                 <h1>{{$company->name}}</h1>
                 @if ($company->email)
@@ -30,7 +30,7 @@
             </div>
         @endif
         @if (Auth::check())
-            <div class='row'>
+            <div class='row mt-4'>
                 <div class='col-8'>
                     <a class="mr-auto btn btn-primary btn-block" href="{{$company->id}}/edit" role="button">Edit</a>
                 </div>
