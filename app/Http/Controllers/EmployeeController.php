@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\Company;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -27,7 +28,8 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        //
+        $employees = Employee::paginate(10);
+        return view('employees.index',compact('employees'));
     }
 
     /**
@@ -37,7 +39,8 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
+        $companies = Company::all('id','name');
+        return view('employees.create',compact('companies'));
     }
 
     /**
@@ -62,7 +65,7 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        //
+        return view('employees.view', compact('employee'));
     }
 
     /**
@@ -73,7 +76,8 @@ class EmployeeController extends Controller
      */
     public function edit(Employee $employee)
     {
-        //
+        $companies = Company::all('id','name');
+        return view('employees.edit',compact('employee','companies'));
     }
 
     /**
