@@ -40,7 +40,7 @@ class CompanyImageController extends Controller
     {
         // Validate the image
         $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:16384|dimensions:min_width=100,min_height=100',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:4096|dimensions:min_width=100,min_height=100',
         ]);
 
         //set the image.
