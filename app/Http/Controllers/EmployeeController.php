@@ -17,6 +17,10 @@ class EmployeeController extends Controller
         'company_id' => 'nullable|exists:companies,id'
     ];
 
+    public $validOrders = [
+        'id','first_name','last_name','company_id'
+    ];
+
     public function __construct()
     {
         $this->middleware('auth')->except(['index','show']);
@@ -28,7 +32,17 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::paginate(10);
+        $employees;
+        if (!Request()->input('order')){
+            $employees = Employee::paginate(10);
+        } else {
+            if (!in_array(Request()->input('order'), $this->validOrders))
+            {
+                return redirect('/employees');
+            }
+            $employees = Employee::orderBy(Request()->input('order'))->paginate(10);
+        };
+        $employees->appends(request()->query());
         return view('employees.index',compact('employees'));
     }
 

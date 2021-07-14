@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <div class='row'>
-            <div class='col-2'><img class='w-100' src="{{$company->picture ? $company->picture->link() : 'https://cdn.tmonkeyt.dev/i/8m6ne.png' }}" alt="company logo"></div>
+            <div class='col-2'><img decoding="async" class='w-100' loading="lazy" src="{{$company->image()}}" alt="company logo"></div>
             <div class="col-10 text-center mt-auto mb-auto">
                 <h1>{{$company->name}}</h1>
                 @if ($company->email)

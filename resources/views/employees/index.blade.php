@@ -2,6 +2,37 @@
 
 @section('content')
 
+    <div class="container text-center px-0">
+        <div class="col-12"><h4>Order By</h4></div>
+        <div class="btn-group btn-group-toggle col-12" data-toggle="buttons">
+            <a href='?order=id' class="btn btn-secondary">
+                <input type="radio" name="options" id="option1" autocomplete="off"
+                @if (Request()->input('order') == "id" || !Request()->input('order'))
+                    checked
+                @endif>Id
+            </a>
+            <a href='?order=first_name' class="btn btn-secondary">
+                <input type="radio" name="options" id="option2" autocomplete="off" 
+                @if (Request()->input('order') == "first_name")
+                    checked
+                @endif>First Name
+            </a>
+            <a href='?order=last_name' class="btn btn-secondary">
+                <input type="radio" name="options" id="option3" autocomplete="off"
+                @if (Request()->input('order') == "last_name")
+                    checked
+                @endif>Last Name
+            </a>
+            <a href='?order=company_id' class="btn btn-secondary">
+                <input type="radio" name="options" id="option3" autocomplete="off"
+                @if (Request()->input('order') == "company_id")
+                    checked
+                @endif>Company
+            </a>
+        </div>
+
+    </div>
+
     <div class="container text-center">
         @foreach ($employees as $emp)
             <div class='col-12 px-0 py-1 card mb-1'>

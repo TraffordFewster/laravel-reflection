@@ -24,3 +24,4 @@ Route::resource('companies', App\Http\Controllers\CompanyController::class);
 Route::resource('employees', App\Http\Controllers\EmployeeController::class);
 
 Route::post('/companies/{company}/image', [App\Http\Controllers\CompanyImageController::class, 'store']);
+Route::get('/companies/{company}/image', [App\Http\Controllers\CompanyImageController::class, 'view']);

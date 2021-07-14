@@ -16,7 +16,7 @@
         @if ($employee->company)
             <div class='row bg-white py-4 my-4'>
                 <div class='col-12 text-center'><h2>Company</h2></div>
-                <div class='col-2'><img class='w-100' src="{{$employee->company->picture ? $employee->company->picture->link() : 'https://cdn.tmonkeyt.dev/i/8m6ne.png' }}" alt="company logo"></div>
+                <div class='col-2'><img decoding="async" class='w-100' loading="lazy" src="{{$employee->company->image()}}" alt="company logo"></div>
                 <div class="col-8 text-center mt-auto mb-auto"><h4><a href="/companies/{{$employee->company->id}}">{{$employee->company->name}}</a></h4></div>
             </div>
         @endif

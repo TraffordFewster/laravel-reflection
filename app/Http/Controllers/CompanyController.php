@@ -16,6 +16,10 @@ class CompanyController extends Controller
         'website' => 'max:255|url|nullable'
     ];
 
+    public $validOrders = [
+        'id','name','updated_at'
+    ];
+
     public function __construct()
     {
         $this->middleware('auth')->except(['index','show']);
@@ -27,8 +31,20 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::paginate(10);
+        $companies;
+        if (!Request()->input('order')){
+            $companies = Company::paginate(10);
+        } else {
+            if (!in_array(Request()->input('order'), $this->validOrders))
+            {
+                return redirect('/companies');
+            }
+            $companies = Company::orderBy(Request()->input('order'))->paginate(10);
+        };
+        $companies->appends(request()->query());
         return view('companies.index',compact('companies'));
+        // $companies = Company::orderBy('name')->paginate(10);
+        // return view('companies.index',compact('companies'));
     }
 
     /**
