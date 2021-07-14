@@ -8,7 +8,7 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\Company;
 
-class CompanyEditTests extends TestCase
+class CompanyEditTest extends TestCase
 {
     use RefreshDatabase;
 
