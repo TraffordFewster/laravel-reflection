@@ -32,14 +32,18 @@ class CompanyController extends Controller
     public function index()
     {
         $companies;
+        $direction = 'asc';
+        if (Request()->input('dir') == "desc"){
+            $direction = 'desc';
+        }
         if (!Request()->input('order')){
-            $companies = Company::paginate(10);
+            $companies = Company::orderBy('id',$direction)->paginate(10);
         } else {
             if (!in_array(Request()->input('order'), $this->validOrders))
             {
                 return redirect('/companies');
             }
-            $companies = Company::orderBy(Request()->input('order'))->paginate(10);
+            $companies = Company::orderBy(Request()->input('order'),$direction)->paginate(10);
         };
         $companies->appends(request()->query());
         return view('companies.index',compact('companies'));

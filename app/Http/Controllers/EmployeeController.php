@@ -33,14 +33,18 @@ class EmployeeController extends Controller
     public function index()
     {
         $employees;
+        $direction = 'asc';
+        if (Request()->input('dir') == "desc"){
+            $direction = 'desc';
+        }
         if (!Request()->input('order')){
-            $employees = Employee::paginate(10);
+            $employees = Employee::orderBy('id',$direction)->paginate(10);
         } else {
             if (!in_array(Request()->input('order'), $this->validOrders))
             {
                 return redirect('/employees');
             }
-            $employees = Employee::orderBy(Request()->input('order'))->paginate(10);
+            $employees = Employee::orderBy(Request()->input('order'),$direction)->paginate(10);
         };
         $employees->appends(request()->query());
         return view('employees.index',compact('employees'));

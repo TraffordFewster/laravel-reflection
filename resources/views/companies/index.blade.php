@@ -4,20 +4,53 @@
 
     <div class="container text-center px-0">
         <div class="col-12"><h4>Order By</h4></div>
-        <div class="btn-group btn-group-toggle col-12" data-toggle="buttons">
-            <a href='?order=id' class="btn btn-secondary">
-                <input type="radio" name="options" id="option1" autocomplete="off"
-                @if (Request()->input('order') == "id" || !Request()->input('order'))
-                    checked
-                @endif>Id
-            </a>
-            <a href='?order=name' class="btn btn-secondary">
-                <input type="radio" name="options" id="option2" autocomplete="off" 
-                @if (Request()->input('order') == "name")
-                    checked
-                @endif>Name
-            </a>
-        
+        <div class='row mb-4'>
+            <div class="btn-group btn-group-toggle col-10" data-toggle="buttons">
+                <a href='?order=id' class="btn btn-secondary">
+                    <input type="radio" name="options" id="option1" autocomplete="off"
+                    @if (Request()->input('order') == "id" || !Request()->input('order'))
+                        checked
+                    @endif>Id
+                </a>
+                <a href='?order=name' class="btn btn-secondary">
+                    <input type="radio" name="options" id="option2" autocomplete="off" 
+                    @if (Request()->input('order') == "name")
+                        checked
+                    @endif>Name
+                </a>
+                <a href='?order=updated_at&dir=desc' class="btn btn-secondary">
+                    <input type="radio" name="options" id="option2" autocomplete="off" 
+                    @if (Request()->input('order') == "updated_at")
+                        checked
+                    @endif>Last Updated
+                </a>
+            </div>
+            <div class="btn-group btn-group-toggle col-2" data-toggle="buttons">
+                <a href='
+                    @if (Request()->input('order'))
+                        ?order={{Request()->input('order')}}&dir=asc
+                    @else
+                        ?dir=asc
+                    @endif
+                ' class="btn btn-secondary">
+                    <input type="radio" name="options" id="option1" autocomplete="off"
+                    @if (Request()->input('dir') == "asc" || !Request()->input('dir'))
+                        checked
+                    @endif>Asc
+                </a>
+                <a href='
+                    @if (Request()->input('order'))
+                        ?order={{Request()->input('order')}}&dir=desc
+                    @else
+                        ?dir=desc
+                    @endif
+                '  class="btn btn-secondary">
+                    <input type="radio" name="options" id="option2" autocomplete="off" 
+                    @if (Request()->input('dir') == "desc")
+                        checked
+                    @endif>Desc
+                </a>
+            </div>
         </div>
 
     </div>
