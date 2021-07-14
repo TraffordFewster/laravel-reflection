@@ -17,7 +17,13 @@ Route::get('/', function () {
     return redirect('/home');
 });
 
-Auth::routes();
+Auth::routes([
+     'register' => false,
+     'reset' =>false,
+     'verify' =>false,
+     'confirm' =>false,
+     
+]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('companies', App\Http\Controllers\CompanyController::class);
