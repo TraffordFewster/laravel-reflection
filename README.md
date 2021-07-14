@@ -1,7 +1,7 @@
 ## Requirements
-[Composer](https://getcomposer.org/)
-[NPM & Node](https://nodejs.org/en/)
-[PHP](https://www.php.net/)
+* [Composer](https://getcomposer.org/)
+* [NPM & Node](https://nodejs.org/en/)
+* [PHP](https://www.php.net/)
 
 ## Installation
 1. run `composer install`
