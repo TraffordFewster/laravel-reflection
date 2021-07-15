@@ -19,7 +19,7 @@ class CompanyImageController extends Controller
         {
             return Cache::get($cacheKey);
         } else {
-            $path = storage_path("app\public\logos\\" . $company->logo);
+            $path = storage_path("app/public/logos/" . $company->logo);
             if (!File::exists($path)) {
                 abort(404);
             }
