@@ -71,7 +71,7 @@ class EmployeeController extends Controller
     {
         $validated = $request->validate($this->validationChecks);
         $newEmployee = Employee::create($validated);
-        session()->flash('success', 'Company Created!');
+        session()->flash('success', 'Employee Created!');
         return redirect("/employees/$newEmployee->id");
     }
 

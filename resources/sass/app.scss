@@ -4,5 +4,10 @@
 // Variables
 @import 'variables';
 
+.link-unstyled, .link-unstyled:link, .link-unstyled:hover {
+  color: inherit;
+  text-decoration: inherit;
+}
+
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
