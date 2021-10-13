@@ -2,9 +2,10 @@
 
 @section('content')
 
-    <form method='POST' action="/employees">
+    <form method='POST' action="/employees/{{$employee->id}}">
         <div class='container'>
             <div class='row'>
+            @method('PUT')
             @csrf
                 <div class='col-12 col-md-6'>
                     <label for="first_name">First Name</label>
