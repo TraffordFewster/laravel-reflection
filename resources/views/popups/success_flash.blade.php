@@ -4,8 +4,10 @@
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
-    <button type="button" class="close" aria-label="Close" style="margin-right: 3rem">
-      <a class="link-unstyled" href="{{url()->previous()}}"><span aria-hidden="true">&lt;</span></a>
-    </button>
+    <a class="link-unstyled" href="{{url()->previous()}}">
+      <button type="button" class="close" aria-label="Close" style="margin-right: 3rem">
+        <span aria-hidden="true">&lt;</span>
+      </button>
+    </a>
   </div>
 @endif
